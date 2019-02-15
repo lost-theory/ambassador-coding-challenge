@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'tracker.wsgi.application'
 if os.environ.get('DATABASE_URL'):
     import urllib.parse
     parsed = urllib.parse.urlparse(os.environ['DATABASE_URL'])
-    name = parsed.netloc.path.strip('/')
+    name = parsed.path.strip('/')
     user_pass, host = parsed.netloc.split('@')
     user, password = user_pass.split(':')
     DATABASES = {
