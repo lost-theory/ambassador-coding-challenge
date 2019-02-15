@@ -1,3 +1,5 @@
+import json
+
 import django.db.utils
 from django.test import TestCase
 from django.urls import reverse
@@ -63,3 +65,13 @@ class LinksRestTests(TestCase):
             Click.objects.create(link=l, ip='127.0.0.1')
         res = self.client.get('/links/').json()
         assert res[0]['clicks'] == num_clicks
+
+    def test_create(self):
+        res = self.client.post('/links/', json.dumps(dict(title='wings', url='http://127.0.0.1:8000/wings/')), content_type='application/json')
+        assert res.status_code == 201
+        assert res.json()['title'] == 'wings'
+
+    def test_create_url_validation_failure(self):
+        res = self.client.post('/links/', json.dumps(dict(title='wings', url='zzz')), content_type='application/json')
+        assert res.status_code == 400
+        assert 'Enter a valid URL.' in res.json()['url']
