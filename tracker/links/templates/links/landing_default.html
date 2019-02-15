@@ -1,0 +1,14 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Tim's Referrals</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css">
+  </head>
+  <body>
+    <h1>{{ link_title|title }} are awesome!</h1>
+    <h2>Come join Tim's World Wide Web!</h2>
+    <img src="{% static 'images/ambassador.png' %}" alt="Ambassador logo" />
+  </body>
+</html>
