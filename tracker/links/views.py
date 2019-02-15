@@ -18,8 +18,10 @@ class LinkViewSet(viewsets.ModelViewSet):
     def list(self, request):
         queryset = Link.objects.raw('''
             SELECT l.*, count(c.id) as clicks
-            FROM links_link l, links_click c
-            WHERE c.link_id = l.id GROUP BY l.id
+            FROM links_link l
+                LEFT OUTER JOIN links_click c
+                ON c.link_id = l.id
+            GROUP BY l.id
             ORDER BY l.creation_date ASC
         ''')
         serialized = LinkSerializer(queryset, many=True)
