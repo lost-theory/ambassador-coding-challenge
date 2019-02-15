@@ -1,1 +1,1 @@
-web: gunicorn tracker.tracker.wsgi
+web: cd tracker && gunicorn tracker.wsgi
