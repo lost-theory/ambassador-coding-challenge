@@ -25,8 +25,11 @@ SECRET_KEY = '@b63#=a!zy6d9+b5p%gdz=qex#!%^6=v7v8#(qw$@0m$zg*m33'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = []
+if os.environ.get('HOME') == '/app':
+    # then we're on Heroku
+    ALLOWED_HOSTS.append('amb-exercise.herokuapp.com')
 
 # Application definition
 
@@ -76,6 +79,7 @@ WSGI_APPLICATION = 'tracker.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 if os.environ.get('DATABASE_URL'):
+    # we're on Heroku
     import urllib.parse
     parsed = urllib.parse.urlparse(os.environ['DATABASE_URL'])
     name = parsed.path.strip('/')
