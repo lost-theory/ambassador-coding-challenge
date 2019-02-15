@@ -2,7 +2,7 @@
 
 This is for the "back-end track" solution.
 
-How to run and test the Django application (with some example output):
+How to run and test the Django application locally (with some example output):
 
 ```bash
 $ python3 -mvenv env
@@ -27,6 +27,10 @@ Ran 11 tests in 0.217s
 
 OK
 ```
+
+The app is running on Heroku here:
+
+* https://amb-exercise.herokuapp.com/
 
 Original README is here:
 

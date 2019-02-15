@@ -75,12 +75,28 @@ WSGI_APPLICATION = 'tracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if os.environ.get('DATABASE_URL'):
+    import urllib.parse
+    parsed = urllib.parse.urlparse(os.environ['DATABASE_URL'])
+    name = parsed.netloc.path.strip('/')
+    user_pass, host = parsed.netloc.split('@')
+    user, password = user_pass.split(':')
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': name,
+            'USER': user,
+            'PASSWORD': password,
+            'HOST': host.split(':')[0],
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Password validation
