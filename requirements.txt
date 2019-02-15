@@ -1,3 +1,4 @@
 djangorestframework==3.9.1
 Django==2.1.7
 psycopg2==2.7.7
+gunicorn==19.9.0
